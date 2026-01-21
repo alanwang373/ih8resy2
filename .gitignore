@@ -7,6 +7,16 @@ accounts.json
 license_key.json
 **/suspicious_commits.txt
 
+
+# Ignore generated configuration files
+tasks.json
+proxies.json
+info.json
+accounts.json
+resrevations.json
+access_key.json
+*.log
+
 # Python cache files
 __pycache__/
 **/__pycache__/

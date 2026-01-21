@@ -12,7 +12,7 @@ app = FastAPI()
 # Add CORS middleware to allow client to connect locally
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins
+    allow_origins=["http://localhost:*", "http://127.0.0.1:*"]
     allow_credentials=True,
     allow_methods=["*"],  # Allow all methods
     allow_headers=["*"],  # Allow all headers
@@ -131,4 +131,4 @@ async def book_reservation(data: ReservationRequest):
 if __name__ == '__main__':
     import uvicorn
     logger.info("Starting FastAPI application")
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="127.0.0.1", port=8000)
