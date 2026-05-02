@@ -2,6 +2,7 @@ import os
 import asyncio
 import httpx
 import logging
+from datetime import datetime
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -25,6 +26,7 @@ logger = logging.getLogger(__name__)
 
 RESY_API_KEY = "VbWk7s3L4KiK5fzlO7JD3Q5EYolJI7n5"
 RESY_AUTH_TOKEN = os.getenv("RESY_AUTH_TOKEN", "")
+MANHATTAN_CENTER = (40.7580, -73.9855)
 
 NEIGHBORHOODS: dict[str, tuple[float, float]] = {
     "Financial District": (40.7075, -74.0113),
@@ -109,15 +111,14 @@ async def get_filters_meta():
     }
 
 
-async def find_venues_for_neighborhood(
+async def fetch_available_venues(
     client: httpx.AsyncClient,
-    neighborhood: str,
     date: str,
     party_size: int,
 ) -> list[dict]:
-    if neighborhood not in NEIGHBORHOODS:
-        return []
-    lat, lng = NEIGHBORHOODS[neighborhood]
+    # Resy currently returns broad inventory regardless of neighborhood/radius inputs.
+    # We fetch once and apply neighborhood filtering locally for better latency/reliability.
+    lat, lng = MANHATTAN_CENTER
     url = (
         f"https://api.resy.com/4/find"
         f"?lat={lat}&long={lng}&day={date}&party_size={party_size}"
@@ -126,29 +127,95 @@ async def find_venues_for_neighborhood(
     try:
         resp = await client.get(url, headers=resy_headers())
         if resp.status_code != 200:
-            logger.warning(f"Resy /4/find failed for {neighborhood}: {resp.status_code} {resp.text[:200]}")
+            logger.warning(f"Resy /4/find failed: {resp.status_code} {resp.text[:200]}")
             return []
         data = resp.json()
         return data.get("results", {}).get("venues", [])
     except Exception as e:
-        logger.error(f"Error querying {neighborhood}: {e}")
+        logger.error(f"Error querying /4/find: {e}")
         return []
 
 
 def slot_in_window(slot: dict, time_start: int, time_end: int) -> bool:
-    try:
-        time_str = slot.get("date", {}).get("start", "")
-        hour = int(time_str.split(" ")[1].split(":")[0])
-        return time_start <= hour <= time_end
-    except Exception:
+    time_str = slot.get("date", {}).get("start", "")
+    if not time_str:
         return False
+
+    try:
+        # Usually "YYYY-MM-DD HH:MM:SS"
+        hour = datetime.strptime(time_str, "%Y-%m-%d %H:%M:%S").hour
+    except ValueError:
+        try:
+            # Fallback for ISO timestamp shape.
+            hour = datetime.fromisoformat(time_str.replace("Z", "+00:00")).hour
+        except Exception:
+            try:
+                # Last resort, keep previous permissive parser.
+                hour = int(time_str.split(" ")[1].split(":")[0])
+            except Exception:
+                return False
+    return time_start <= hour <= time_end
+
+
+def extract_cuisines(detail: dict) -> list[str]:
+    cuisines = [c.get("locale", "") for c in detail.get("cuisine", []) if c.get("locale")]
+    if detail.get("type"):
+        cuisines.append(detail["type"])
+    deduped = []
+    seen = set()
+    for cuisine in cuisines:
+        key = cuisine.strip().lower()
+        if cuisine and key not in seen:
+            seen.add(key)
+            deduped.append(cuisine)
+    return deduped
+
+
+def extract_vibe_text(detail: dict) -> str:
+    parts: list[str] = []
+    for tag in detail.get("tags", []) or []:
+        if isinstance(tag, dict) and tag.get("locale"):
+            parts.append(tag["locale"])
+    for content in detail.get("content", []) or []:
+        if not isinstance(content, dict):
+            continue
+        for key in ("name", "title", "body"):
+            val = content.get(key)
+            if isinstance(val, str) and val.strip():
+                parts.append(val)
+    return " ".join(parts).lower()
+
+
+def extract_image_urls(detail: dict) -> list[str]:
+    urls: list[str] = []
+    responsive_images = detail.get("responsive_images") or {}
+    originals = responsive_images.get("originals", {}) if isinstance(responsive_images, dict) else {}
+    if isinstance(originals, dict):
+        for image_data in originals.values():
+            if isinstance(image_data, dict) and image_data.get("url"):
+                urls.append(image_data["url"])
+    return urls
+
+
+def venue_neighborhood(venue: dict) -> str:
+    detail = venue.get("venue", {})
+    return (detail.get("location", {}) or {}).get("neighborhood", "")
+
+
+def venue_matches_neighborhoods(venue: dict, neighborhoods: list[str]) -> bool:
+    if not neighborhoods:
+        return True
+    selected = {n.strip().lower() for n in neighborhoods if n.strip()}
+    if not selected:
+        return True
+    return venue_neighborhood(venue).strip().lower() in selected
 
 
 def match_filters(venue: dict, req: SearchRequest) -> bool:
     detail = venue.get("venue", {})
 
     if req.price_range is not None:
-        price = detail.get("price_range_id")
+        price = detail.get("price_range")
         if price and price > req.price_range:
             return False
 
@@ -158,17 +225,18 @@ def match_filters(venue: dict, req: SearchRequest) -> bool:
             return False
 
     if req.cuisines:
-        venue_cuisines = " ".join(
-            c.get("locale", "").lower() for c in detail.get("cuisine", [])
-        )
-        if not any(c.lower() in venue_cuisines for c in req.cuisines):
+        venue_cuisines = [c.lower() for c in extract_cuisines(detail)]
+        requested_cuisines = [c.lower() for c in req.cuisines]
+        if not any(
+            any(requested in cuisine for cuisine in venue_cuisines)
+            for requested in requested_cuisines
+        ):
             return False
 
     if req.vibe_tags:
-        venue_tags = " ".join(
-            t.get("locale", "").lower() for t in detail.get("tags", [])
-        )
-        if not any(v.lower() in venue_tags for v in req.vibe_tags):
+        searchable = extract_vibe_text(detail)
+        # Some venues do not expose any vibe metadata; don't hard-fail those entries.
+        if searchable and not any(v.lower() in searchable for v in req.vibe_tags):
             return False
 
     return True
@@ -190,58 +258,58 @@ def format_result(venue: dict, date: str, party_size: int, time_start: int, time
     earliest = windowed[0]
     time_slot = earliest.get("date", {}).get("start", "").split(" ")[1][:5]
     slug = detail.get("url_slug", "")
+    if not slug:
+        return None
+
+    available_slots = []
+    seen_slots = set()
+    for slot in windowed:
+        slot_time = slot.get("date", {}).get("start", "").split(" ")[1][:5]
+        slot_type = slot.get("config", {}).get("type", "")
+        slot_key = f"{slot_time}|{slot_type}"
+        if slot_time and slot_key not in seen_slots:
+            seen_slots.add(slot_key)
+            available_slots.append({"time": slot_time, "type": slot_type})
+
+    tags = [t.get("locale", "") for t in detail.get("tags", []) if isinstance(t, dict) and t.get("locale")]
 
     return {
         "id": detail.get("id", {}).get("resy"),
         "name": detail.get("name", ""),
         "slug": slug,
-        "neighborhood": detail.get("location", {}).get("neighborhood", ""),
-        "address": detail.get("location", {}).get("address_1", ""),
-        "cuisine": [c.get("locale", "") for c in detail.get("cuisine", [])],
-        "tags": [t.get("locale", "") for t in detail.get("tags", [])],
+        "neighborhood": venue_neighborhood(venue),
+        "address": (detail.get("location", {}) or {}).get("name", ""),
+        "cuisine": extract_cuisines(detail),
+        "tags": tags,
         "rating": detail.get("rating"),
-        "price_range": detail.get("price_range_id"),
-        "images": detail.get("images", [])[:1],
-        "available_slots": [
-            {
-                "time": s.get("date", {}).get("start", "").split(" ")[1][:5],
-                "type": s.get("config", {}).get("type", ""),
-            }
-            for s in windowed
-        ],
+        "price_range": detail.get("price_range"),
+        "images": extract_image_urls(detail)[:1],
+        "available_slots": available_slots,
         "resy_url": build_resy_url(slug, date, party_size, time_slot),
     }
 
 
 @app.post("/api/search")
 async def search_restaurants(request: SearchRequest):
-    if not RESY_AUTH_TOKEN:
-        raise HTTPException(status_code=500, detail="RESY_AUTH_TOKEN not configured in .env")
+    async with httpx.AsyncClient(timeout=httpx.Timeout(45.0, connect=10.0)) as client:
+        all_venues = await fetch_available_venues(client, request.date, request.party_size)
 
-    target_neighborhoods = request.neighborhoods or list(NEIGHBORHOODS.keys())
+    by_neighborhood = [v for v in all_venues if venue_matches_neighborhoods(v, request.neighborhoods)]
 
-    async with httpx.AsyncClient(timeout=15.0) as client:
-        tasks = [
-            find_venues_for_neighborhood(client, n, request.date, request.party_size)
-            for n in target_neighborhoods
-        ]
-        batches = await asyncio.gather(*tasks)
+    # Deduplicate by venue id.
+    deduped: list[dict] = []
+    seen_ids: set = set()
+    for venue in by_neighborhood:
+        venue_id = venue.get("venue", {}).get("id", {}).get("resy")
+        if venue_id and venue_id not in seen_ids:
+            seen_ids.add(venue_id)
+            deduped.append(venue)
 
-    # Deduplicate across neighborhoods
-    seen: set = set()
-    all_venues: list[dict] = []
-    for batch in batches:
-        for v in batch:
-            vid = v.get("venue", {}).get("id", {}).get("resy")
-            if vid and vid not in seen:
-                seen.add(vid)
-                all_venues.append(v)
-
-    filtered = [v for v in all_venues if match_filters(v, request)]
+    filtered = [v for v in deduped if match_filters(v, request)]
 
     results = []
-    for v in filtered:
-        formatted = format_result(v, request.date, request.party_size, request.time_start, request.time_end)
+    for venue in filtered:
+        formatted = format_result(venue, request.date, request.party_size, request.time_start, request.time_end)
         if formatted:
             results.append(formatted)
 
