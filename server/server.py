@@ -3,6 +3,8 @@ import asyncio
 import httpx
 import logging
 from datetime import datetime
+from time import time, monotonic
+import random
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -27,6 +29,16 @@ logger = logging.getLogger(__name__)
 RESY_API_KEY = "VbWk7s3L4KiK5fzlO7JD3Q5EYolJI7n5"
 RESY_AUTH_TOKEN = os.getenv("RESY_AUTH_TOKEN", "")
 MANHATTAN_CENTER = (40.7580, -73.9855)
+SEARCH_CACHE_TTL_SECONDS = max(int(os.getenv("SEARCH_CACHE_TTL_MINUTES", "30")), 1) * 60
+SEARCH_POC_POOL_SIZE = max(int(os.getenv("SEARCH_POC_POOL_SIZE", "50")), 1)
+RESY_MAX_RETRIES = max(int(os.getenv("RESY_MAX_RETRIES", "3")), 1)
+RESY_REQUEST_TIMEOUT_SECONDS = float(os.getenv("RESY_REQUEST_TIMEOUT_SECONDS", "25"))
+RESY_MIN_REQUEST_GAP_SECONDS = max(float(os.getenv("RESY_MIN_REQUEST_GAP_SECONDS", "0.35")), 0.0)
+
+search_cache_lock = asyncio.Lock()
+resy_pacing_lock = asyncio.Lock()
+search_cache: dict[tuple[str, int], dict] = {}
+last_resy_request_at: float = 0.0
 
 NEIGHBORHOODS: dict[str, tuple[float, float]] = {
     "Financial District": (40.7075, -74.0113),
@@ -83,6 +95,56 @@ class SearchRequest(BaseModel):
     min_rating: Optional[float] = None
 
 
+def _search_cache_key(date: str, party_size: int) -> tuple[str, int]:
+    return (date, party_size)
+
+
+def _cache_is_fresh(entry: dict) -> bool:
+    return (time() - entry.get("fetched_at_epoch", 0)) < SEARCH_CACHE_TTL_SECONDS
+
+
+def _normalized_slug(venue: dict) -> str:
+    detail = venue.get("venue", {})
+    return (detail.get("url_slug", "") or "").strip().lower()
+
+
+def _venue_score_for_pool(venue: dict) -> float:
+    detail = venue.get("venue", {})
+    rating = detail.get("rating") or 0
+    total_ratings = detail.get("total_ratings") or 0
+    return float(rating) * 1000 + min(float(total_ratings), 999)
+
+
+def _build_poc_pool(all_venues: list[dict], size: int) -> list[dict]:
+    # Keep only one entry per slug to ensure stable, deterministic cards.
+    deduped_by_slug: dict[str, dict] = {}
+    for venue in all_venues:
+        slug = _normalized_slug(venue)
+        if not slug:
+            continue
+        existing = deduped_by_slug.get(slug)
+        if not existing:
+            deduped_by_slug[slug] = venue
+            continue
+        if _venue_score_for_pool(venue) > _venue_score_for_pool(existing):
+            deduped_by_slug[slug] = venue
+
+    scored = sorted(deduped_by_slug.values(), key=_venue_score_for_pool, reverse=True)
+    return scored[:size]
+
+
+async def _paced_resy_get(client: httpx.AsyncClient, url: str, headers: dict) -> httpx.Response:
+    global last_resy_request_at
+    async with resy_pacing_lock:
+        if RESY_MIN_REQUEST_GAP_SECONDS > 0:
+            elapsed = monotonic() - last_resy_request_at
+            wait_for = RESY_MIN_REQUEST_GAP_SECONDS - elapsed
+            if wait_for > 0:
+                await asyncio.sleep(wait_for + random.uniform(0.05, 0.2))
+        last_resy_request_at = monotonic()
+    return await client.get(url, headers=headers)
+
+
 @app.get("/")
 async def index():
     return {"message": "ResyFinder API is live"}
@@ -124,16 +186,75 @@ async def fetch_available_venues(
         f"?lat={lat}&long={lng}&day={date}&party_size={party_size}"
         f"&per_page=30&page=1&radius=0.5"
     )
-    try:
-        resp = await client.get(url, headers=resy_headers())
-        if resp.status_code != 200:
-            logger.warning(f"Resy /4/find failed: {resp.status_code} {resp.text[:200]}")
+    headers = resy_headers()
+    retryable_statuses = {429, 500, 502, 503, 504}
+
+    for attempt in range(1, RESY_MAX_RETRIES + 1):
+        try:
+            resp = await _paced_resy_get(client, url, headers=headers)
+            if resp.status_code == 200:
+                data = resp.json()
+                return data.get("results", {}).get("venues", [])
+
+            should_retry = resp.status_code in retryable_statuses and attempt < RESY_MAX_RETRIES
+            logger.warning(
+                "Resy /4/find failed (attempt %s/%s): %s %s",
+                attempt,
+                RESY_MAX_RETRIES,
+                resp.status_code,
+                resp.text[:200],
+            )
+            if should_retry:
+                backoff = (0.5 * (2 ** (attempt - 1))) + random.uniform(0.05, 0.35)
+                await asyncio.sleep(backoff)
+                continue
             return []
-        data = resp.json()
-        return data.get("results", {}).get("venues", [])
-    except Exception as e:
-        logger.error(f"Error querying /4/find: {e}")
-        return []
+        except (httpx.TimeoutException, httpx.ConnectError, httpx.NetworkError) as e:
+            logger.warning("Resy /4/find network error on attempt %s/%s: %s", attempt, RESY_MAX_RETRIES, e)
+            if attempt < RESY_MAX_RETRIES:
+                backoff = (0.5 * (2 ** (attempt - 1))) + random.uniform(0.05, 0.35)
+                await asyncio.sleep(backoff)
+                continue
+            return []
+        except Exception as e:
+            logger.error(f"Error querying /4/find: {e}")
+            return []
+
+    return []
+
+
+async def get_poc_cached_venues(
+    client: httpx.AsyncClient,
+    date: str,
+    party_size: int,
+) -> tuple[list[dict], str]:
+    key = _search_cache_key(date, party_size)
+    cached = search_cache.get(key)
+    if cached and _cache_is_fresh(cached):
+        return cached["venues"], "hit"
+
+    async with search_cache_lock:
+        # Double-check after acquiring the lock to avoid duplicate refreshes.
+        cached = search_cache.get(key)
+        if cached and _cache_is_fresh(cached):
+            return cached["venues"], "hit"
+
+        fetched = await fetch_available_venues(client, date, party_size)
+        if fetched:
+            pool = _build_poc_pool(fetched, SEARCH_POC_POOL_SIZE)
+            search_cache[key] = {
+                "fetched_at_epoch": time(),
+                "venues": pool,
+                "source_count": len(fetched),
+            }
+            logger.info("Refreshed POC venue pool for %s/%s: source=%s pool=%s", date, party_size, len(fetched), len(pool))
+            return pool, "miss"
+
+        if cached and cached.get("venues"):
+            logger.warning("Serving stale POC cache for %s/%s due to upstream fetch failure", date, party_size)
+            return cached["venues"], "stale"
+
+    return [], "empty"
 
 
 def slot_in_window(slot: dict, time_start: int, time_end: int) -> bool:
@@ -291,8 +412,8 @@ def format_result(venue: dict, date: str, party_size: int, time_start: int, time
 
 @app.post("/api/search")
 async def search_restaurants(request: SearchRequest):
-    async with httpx.AsyncClient(timeout=httpx.Timeout(45.0, connect=10.0)) as client:
-        all_venues = await fetch_available_venues(client, request.date, request.party_size)
+    async with httpx.AsyncClient(timeout=httpx.Timeout(RESY_REQUEST_TIMEOUT_SECONDS, connect=8.0)) as client:
+        all_venues, cache_state = await get_poc_cached_venues(client, request.date, request.party_size)
 
     by_neighborhood = [v for v in all_venues if venue_matches_neighborhoods(v, request.neighborhoods)]
 
@@ -315,7 +436,16 @@ async def search_restaurants(request: SearchRequest):
 
     results.sort(key=lambda x: x.get("rating") or 0, reverse=True)
 
-    return {"results": results, "total": len(results)}
+    return {
+        "results": results,
+        "total": len(results),
+        "meta": {
+            "cache_state": cache_state,
+            "pool_size": len(all_venues),
+            "pool_mode": "manhattan-poc-cached-subset",
+            "cache_ttl_minutes": SEARCH_CACHE_TTL_SECONDS // 60,
+        },
+    }
 
 
 if __name__ == "__main__":
