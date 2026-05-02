@@ -1,0 +1,462 @@
+[
+  {
+    "id": 2567,
+    "slug": "via-carota",
+    "name": "Via Carota",
+    "neighborhood": "West Village",
+    "cuisine": [],
+    "price_range": 2,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 6194,
+    "slug": "carbone",
+    "name": "Carbone",
+    "neighborhood": "Greenwich Village",
+    "cuisine": [],
+    "price_range": 4,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 1387,
+    "slug": "le-bernardin",
+    "name": "Le Bernardin",
+    "neighborhood": "Theater District",
+    "cuisine": [],
+    "price_range": 4,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 70928,
+    "slug": "eleven-madison-park",
+    "name": "Eleven Madison Park",
+    "neighborhood": "Flatiron",
+    "cuisine": [],
+    "price_range": 4,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 29947,
+    "slug": "daniel",
+    "name": "Restaurant Daniel",
+    "neighborhood": "Upper East Side",
+    "cuisine": [],
+    "price_range": 3,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 5951,
+    "slug": "jean-georges",
+    "name": "Jean-Georges",
+    "neighborhood": "Upper West Side",
+    "cuisine": [],
+    "price_range": 4,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 3731,
+    "slug": "gramercy-tavern",
+    "name": "The Tavern at Gramercy Tavern",
+    "neighborhood": "Gramercy Park",
+    "cuisine": [],
+    "price_range": 4,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 698,
+    "slug": "union-square-cafe",
+    "name": "Union Square Cafe",
+    "neighborhood": "Union Square",
+    "cuisine": [],
+    "price_range": 2,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 9846,
+    "slug": "minetta-tavern",
+    "name": "Minetta Tavern",
+    "neighborhood": "Greenwich Village",
+    "cuisine": [],
+    "price_range": 2,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 8266,
+    "slug": "jua",
+    "name": "JUA",
+    "neighborhood": "Flatiron District",
+    "cuisine": [],
+    "price_range": 2,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 646,
+    "slug": "king",
+    "name": "King",
+    "neighborhood": "SoHo",
+    "cuisine": [],
+    "price_range": 3,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 5230,
+    "slug": "cookshop",
+    "name": "Cookshop",
+    "neighborhood": "Chelsea",
+    "cuisine": [],
+    "price_range": 3,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 50095,
+    "slug": "the-dutch",
+    "name": "The Dutch",
+    "neighborhood": "Soho",
+    "cuisine": [],
+    "price_range": 3,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 5,
+    "slug": "charlie-bird",
+    "name": "Charlie Bird",
+    "neighborhood": "SoHo",
+    "cuisine": [],
+    "price_range": 3,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 2601,
+    "slug": "oxomoco",
+    "name": "Oxomoco",
+    "neighborhood": "Greenpoint",
+    "cuisine": [],
+    "price_range": 2,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 64593,
+    "slug": "torrisi",
+    "name": "Torrisi",
+    "neighborhood": "Nolita",
+    "cuisine": [],
+    "price_range": 3,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 3770,
+    "slug": "sushi-yasuda",
+    "name": "Sushi Yasuda",
+    "neighborhood": "Midtown East",
+    "cuisine": [],
+    "price_range": 4,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 10719,
+    "slug": "marea",
+    "name": "Marea",
+    "neighborhood": "Central Park South",
+    "cuisine": [],
+    "price_range": 3,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 10401,
+    "slug": "gabriel-kreuther",
+    "name": "Gabriel Kreuther",
+    "neighborhood": "Bryant Park, Theater District",
+    "cuisine": [],
+    "price_range": 3,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 29371,
+    "slug": "dirt-candy",
+    "name": "Dirt Candy",
+    "neighborhood": "Lower East Side",
+    "cuisine": [],
+    "price_range": 2,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 4600,
+    "slug": "russ-and-daughters-cafe",
+    "name": "Russ & Daughters Cafe",
+    "neighborhood": "Lower East Side",
+    "cuisine": [],
+    "price_range": 2,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 54724,
+    "slug": "ci-siamo",
+    "name": "Ci Siamo",
+    "neighborhood": "Midtown West",
+    "cuisine": [],
+    "price_range": 1,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 5255,
+    "slug": "abc-kitchen",
+    "name": "abc kitchen by Jean-Georges",
+    "neighborhood": "Flatiron",
+    "cuisine": [],
+    "price_range": 2,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 5257,
+    "slug": "abc-cocina",
+    "name": "abc cocina by Jean-Georges",
+    "neighborhood": "Flatiron",
+    "cuisine": [],
+    "price_range": 2,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 679,
+    "slug": "loring-place",
+    "name": "Loring Place",
+    "neighborhood": "Greenwich Village",
+    "cuisine": [],
+    "price_range": 2,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 418,
+    "slug": "lilia",
+    "name": "Lilia",
+    "neighborhood": "Williamsburg",
+    "cuisine": [],
+    "price_range": 3,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 5589,
+    "slug": "sushi-nakazawa",
+    "name": "Sushi Nakazawa NY",
+    "neighborhood": "West Village",
+    "cuisine": [],
+    "price_range": 4,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 82221,
+    "slug": "buddakan-new-york",
+    "name": "Buddakan - New York",
+    "neighborhood": "Meatpacking District",
+    "cuisine": [],
+    "price_range": 3,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 68978,
+    "slug": "ippudo-westside",
+    "name": "Ippudo - Westside",
+    "neighborhood": "Hell's Kitchen",
+    "cuisine": [],
+    "price_range": 2,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 58543,
+    "slug": "oiji-mi",
+    "name": "Oiji Mi",
+    "neighborhood": "Flatiron",
+    "cuisine": [],
+    "price_range": 3,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 72271,
+    "slug": "cote-nyc",
+    "name": "COTE Flatiron",
+    "neighborhood": "Flatiron",
+    "cuisine": [],
+    "price_range": 3,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 1385,
+    "slug": "cervos",
+    "name": "Cervo\u2019s",
+    "neighborhood": "Lower East Side",
+    "cuisine": [],
+    "price_range": 2,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 10413,
+    "slug": "lil-frankies",
+    "name": "Lil' Frankie's",
+    "neighborhood": "East Village",
+    "cuisine": [],
+    "price_range": 2,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 83283,
+    "slug": "superiority-burger",
+    "name": "Superiority Burger",
+    "neighborhood": "East Village",
+    "cuisine": [],
+    "price_range": 2,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 443,
+    "slug": "i-sodi",
+    "name": "I Sodi",
+    "neighborhood": "West Village",
+    "cuisine": [],
+    "price_range": 3,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 8303,
+    "slug": "le-coucou",
+    "name": "Le Coucou",
+    "neighborhood": "SoHo",
+    "cuisine": [],
+    "price_range": 3,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 3015,
+    "slug": "misi",
+    "name": "Misi",
+    "neighborhood": "Williamsburg",
+    "cuisine": [],
+    "price_range": 3,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 7369,
+    "slug": "the-modern",
+    "name": "The Modern",
+    "neighborhood": "Midtown",
+    "cuisine": [],
+    "price_range": 4,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 58751,
+    "slug": "pebble-bar",
+    "name": "Pebble Bar",
+    "neighborhood": "Midtown",
+    "cuisine": [],
+    "price_range": 2,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 58337,
+    "slug": "casa-enrique",
+    "name": "Casa Enrique",
+    "neighborhood": "Long Island City",
+    "cuisine": [],
+    "price_range": 1,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 1543,
+    "slug": "jeju-noodle-bar",
+    "name": "Jeju Noodle Bar",
+    "neighborhood": "West Village",
+    "cuisine": [],
+    "price_range": 2,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 58972,
+    "slug": "the-noortwyck",
+    "name": "The Noortwyck",
+    "neighborhood": "West Village",
+    "cuisine": [],
+    "price_range": 2,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 51628,
+    "slug": "maison-premiere",
+    "name": "Maison Premiere",
+    "neighborhood": "Williamsburg",
+    "cuisine": [],
+    "price_range": 2,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 6012,
+    "slug": "rule-of-thirds",
+    "name": "Rule of Thirds",
+    "neighborhood": "Greenpoint",
+    "cuisine": [],
+    "price_range": 2,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 58422,
+    "slug": "the-waverly-inn",
+    "name": "The Waverly Inn",
+    "neighborhood": "West Village",
+    "cuisine": [],
+    "price_range": 3,
+    "rating": null,
+    "tags": []
+  },
+  {
+    "id": 53693,
+    "slug": "al-di-la-trattoria",
+    "name": "al di l\u00e0 Trattoria",
+    "neighborhood": "Park Slope",
+    "cuisine": [],
+    "price_range": 2,
+    "rating": null,
+    "tags": []
+  }
+]
