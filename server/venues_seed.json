@@ -4,509 +4,820 @@
     "slug": "via-carota",
     "name": "Via Carota",
     "neighborhood": "West Village",
-    "cuisine": ["Italian"],
+    "cuisine": [
+      "Italian"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Date Night", "Quiet & Intimate", "Bustling"]
+    "tags": [
+      "Date Night",
+      "Quiet & Intimate",
+      "Bustling"
+    ]
   },
   {
     "id": 6194,
     "slug": "carbone",
     "name": "Carbone",
     "neighborhood": "Greenwich Village",
-    "cuisine": ["Italian", "American"],
+    "cuisine": [
+      "Italian",
+      "American"
+    ],
     "price_range": 4,
     "rating": null,
-    "tags": ["Date Night", "Special Occasion", "Lively"]
+    "tags": [
+      "Date Night",
+      "Special Occasion",
+      "Lively"
+    ]
   },
   {
     "id": 1387,
     "slug": "le-bernardin",
     "name": "Le Bernardin",
     "neighborhood": "Theater District",
-    "cuisine": ["French", "Seafood"],
+    "cuisine": [
+      "French",
+      "Seafood"
+    ],
     "price_range": 4,
     "rating": null,
-    "tags": ["Business Dining", "Special Occasion", "Quiet & Intimate"]
+    "tags": [
+      "Business Dining",
+      "Special Occasion",
+      "Quiet & Intimate"
+    ]
   },
   {
     "id": 70928,
     "slug": "eleven-madison-park",
     "name": "Eleven Madison Park",
     "neighborhood": "Flatiron",
-    "cuisine": ["American", "Farm-to-Table"],
+    "cuisine": [
+      "American",
+      "Farm-to-Table"
+    ],
     "price_range": 4,
     "rating": null,
-    "tags": ["Special Occasion", "Counter / Chef's Table"]
+    "tags": [
+      "Special Occasion",
+      "Counter / Chef's Table"
+    ]
   },
   {
     "id": 29947,
     "slug": "daniel",
     "name": "Restaurant Daniel",
     "neighborhood": "Upper East Side",
-    "cuisine": ["French"],
+    "cuisine": [
+      "French"
+    ],
     "price_range": 4,
     "rating": null,
-    "tags": ["Business Dining", "Special Occasion", "Quiet & Intimate"]
+    "tags": [
+      "Business Dining",
+      "Special Occasion",
+      "Quiet & Intimate"
+    ]
   },
   {
     "id": 5951,
     "slug": "jean-georges",
     "name": "Jean-Georges",
     "neighborhood": "Upper West Side",
-    "cuisine": ["French", "American"],
+    "cuisine": [
+      "French",
+      "American"
+    ],
     "price_range": 4,
     "rating": null,
-    "tags": ["Special Occasion", "Business Dining"]
+    "tags": [
+      "Special Occasion",
+      "Business Dining"
+    ]
   },
   {
     "id": 3731,
     "slug": "gramercy-tavern",
     "name": "The Tavern at Gramercy Tavern",
     "neighborhood": "Gramercy Park",
-    "cuisine": ["American", "Farm-to-Table"],
+    "cuisine": [
+      "American",
+      "Farm-to-Table"
+    ],
     "price_range": 4,
     "rating": null,
-    "tags": ["Date Night", "Special Occasion"]
+    "tags": [
+      "Date Night",
+      "Special Occasion"
+    ]
   },
   {
     "id": 698,
     "slug": "union-square-cafe",
     "name": "Union Square Cafe",
     "neighborhood": "Gramercy Park",
-    "cuisine": ["American"],
+    "cuisine": [
+      "American"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Date Night", "Farm-to-Table", "Lively"]
+    "tags": [
+      "Date Night",
+      "Farm-to-Table",
+      "Lively"
+    ]
   },
   {
     "id": 9846,
     "slug": "minetta-tavern",
     "name": "Minetta Tavern",
     "neighborhood": "Greenwich Village",
-    "cuisine": ["French", "American"],
+    "cuisine": [
+      "French",
+      "American"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Date Night", "Lively"]
+    "tags": [
+      "Date Night",
+      "Lively"
+    ]
   },
   {
     "id": 8266,
     "slug": "jua",
     "name": "JUA",
     "neighborhood": "Flatiron",
-    "cuisine": ["Korean"],
+    "cuisine": [
+      "Korean"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Date Night", "Special Occasion", "Quiet & Intimate"]
+    "tags": [
+      "Date Night",
+      "Special Occasion",
+      "Quiet & Intimate"
+    ]
   },
   {
     "id": 646,
     "slug": "king",
     "name": "King",
     "neighborhood": "SoHo",
-    "cuisine": ["Italian", "French"],
+    "cuisine": [
+      "Italian",
+      "French"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Date Night", "Quiet & Intimate"]
+    "tags": [
+      "Date Night",
+      "Quiet & Intimate"
+    ]
   },
   {
     "id": 5230,
     "slug": "cookshop",
     "name": "Cookshop",
     "neighborhood": "Chelsea",
-    "cuisine": ["American", "Farm-to-Table"],
+    "cuisine": [
+      "American",
+      "Farm-to-Table"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Brunch Spot", "Outdoor"]
+    "tags": [
+      "Brunch Spot",
+      "Outdoor"
+    ]
   },
   {
     "id": 50095,
     "slug": "the-dutch",
     "name": "The Dutch",
     "neighborhood": "SoHo",
-    "cuisine": ["American"],
+    "cuisine": [
+      "American"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Brunch Spot", "Lively"]
+    "tags": [
+      "Brunch Spot",
+      "Lively"
+    ]
   },
   {
     "id": 5,
     "slug": "charlie-bird",
     "name": "Charlie Bird",
     "neighborhood": "SoHo",
-    "cuisine": ["Italian", "American"],
+    "cuisine": [
+      "Italian",
+      "American"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Date Night", "Lively"]
+    "tags": [
+      "Date Night",
+      "Lively"
+    ]
   },
   {
     "id": 2601,
     "slug": "oxomoco",
     "name": "Oxomoco",
     "neighborhood": "Greenpoint",
-    "cuisine": ["Mexican"],
+    "cuisine": [
+      "Mexican"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Date Night", "Lively", "Outdoor"]
+    "tags": [
+      "Date Night",
+      "Lively",
+      "Outdoor"
+    ]
   },
   {
     "id": 64593,
     "slug": "torrisi",
     "name": "Torrisi",
     "neighborhood": "Nolita",
-    "cuisine": ["Italian", "American"],
+    "cuisine": [
+      "Italian",
+      "American"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Date Night", "Special Occasion", "Lively"]
+    "tags": [
+      "Date Night",
+      "Special Occasion",
+      "Lively"
+    ]
   },
   {
     "id": 3770,
     "slug": "sushi-yasuda",
     "name": "Sushi Yasuda",
     "neighborhood": "Midtown East",
-    "cuisine": ["Japanese", "Sushi"],
+    "cuisine": [
+      "Japanese",
+      "Sushi"
+    ],
     "price_range": 4,
     "rating": null,
-    "tags": ["Counter / Chef's Table", "Quiet & Intimate", "Business Dining"]
+    "tags": [
+      "Counter / Chef's Table",
+      "Quiet & Intimate",
+      "Business Dining"
+    ]
   },
   {
     "id": 10719,
     "slug": "marea",
     "name": "Marea",
     "neighborhood": "Central Park South",
-    "cuisine": ["Italian", "Seafood"],
+    "cuisine": [
+      "Italian",
+      "Seafood"
+    ],
     "price_range": 4,
     "rating": null,
-    "tags": ["Business Dining", "Date Night", "Special Occasion"]
+    "tags": [
+      "Business Dining",
+      "Date Night",
+      "Special Occasion"
+    ]
   },
   {
     "id": 10401,
     "slug": "gabriel-kreuther",
     "name": "Gabriel Kreuther",
     "neighborhood": "Midtown West",
-    "cuisine": ["French", "American"],
+    "cuisine": [
+      "French",
+      "American"
+    ],
     "price_range": 4,
     "rating": null,
-    "tags": ["Business Dining", "Special Occasion", "Quiet & Intimate"]
+    "tags": [
+      "Business Dining",
+      "Special Occasion",
+      "Quiet & Intimate"
+    ]
   },
   {
     "id": 29371,
     "slug": "dirt-candy",
     "name": "Dirt Candy",
     "neighborhood": "Lower East Side",
-    "cuisine": ["American", "Farm-to-Table"],
+    "cuisine": [
+      "American",
+      "Farm-to-Table"
+    ],
     "price_range": 2,
     "rating": null,
-    "tags": ["Special Occasion", "Quiet & Intimate"]
+    "tags": [
+      "Special Occasion",
+      "Quiet & Intimate"
+    ]
   },
   {
     "id": 4600,
     "slug": "russ-and-daughters-cafe",
     "name": "Russ & Daughters Cafe",
     "neighborhood": "Lower East Side",
-    "cuisine": ["American"],
+    "cuisine": [
+      "American"
+    ],
     "price_range": 2,
     "rating": null,
-    "tags": ["Brunch Spot", "Lively"]
+    "tags": [
+      "Brunch Spot",
+      "Lively"
+    ]
   },
   {
     "id": 54724,
     "slug": "ci-siamo",
     "name": "Ci Siamo",
     "neighborhood": "Midtown West",
-    "cuisine": ["Italian"],
+    "cuisine": [
+      "Italian"
+    ],
     "price_range": 2,
     "rating": null,
-    "tags": ["Date Night", "Lively"]
+    "tags": [
+      "Date Night",
+      "Lively"
+    ]
   },
   {
     "id": 5255,
     "slug": "abc-kitchen",
     "name": "abc kitchen by Jean-Georges",
     "neighborhood": "Flatiron",
-    "cuisine": ["American", "Farm-to-Table"],
+    "cuisine": [
+      "American",
+      "Farm-to-Table"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Brunch Spot", "Date Night"]
+    "tags": [
+      "Brunch Spot",
+      "Date Night"
+    ]
   },
   {
     "id": 5257,
     "slug": "abc-cocina",
     "name": "abc cocina by Jean-Georges",
     "neighborhood": "Flatiron",
-    "cuisine": ["Mexican", "Spanish"],
+    "cuisine": [
+      "Mexican",
+      "Spanish"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Date Night", "Lively"]
+    "tags": [
+      "Date Night",
+      "Lively"
+    ]
   },
   {
     "id": 679,
     "slug": "loring-place",
     "name": "Loring Place",
     "neighborhood": "Greenwich Village",
-    "cuisine": ["American", "Farm-to-Table"],
+    "cuisine": [
+      "American",
+      "Farm-to-Table"
+    ],
     "price_range": 2,
     "rating": null,
-    "tags": ["Date Night", "Brunch Spot"]
+    "tags": [
+      "Date Night",
+      "Brunch Spot"
+    ]
   },
   {
     "id": 418,
     "slug": "lilia",
     "name": "Lilia",
     "neighborhood": "Williamsburg",
-    "cuisine": ["Italian"],
+    "cuisine": [
+      "Italian"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Date Night", "Bustling", "Special Occasion"]
+    "tags": [
+      "Date Night",
+      "Bustling",
+      "Special Occasion"
+    ]
   },
   {
     "id": 5589,
     "slug": "sushi-nakazawa",
     "name": "Sushi Nakazawa NY",
     "neighborhood": "West Village",
-    "cuisine": ["Japanese", "Sushi"],
+    "cuisine": [
+      "Japanese",
+      "Sushi"
+    ],
     "price_range": 4,
     "rating": null,
-    "tags": ["Counter / Chef's Table", "Special Occasion", "Quiet & Intimate"]
+    "tags": [
+      "Counter / Chef's Table",
+      "Special Occasion",
+      "Quiet & Intimate"
+    ]
   },
   {
     "id": 82221,
     "slug": "buddakan-new-york",
     "name": "Buddakan - New York",
     "neighborhood": "Meatpacking District",
-    "cuisine": ["Chinese", "Asian"],
+    "cuisine": [
+      "Chinese",
+      "Asian"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Lively", "Bustling", "Special Occasion"]
+    "tags": [
+      "Lively",
+      "Bustling",
+      "Special Occasion"
+    ]
   },
   {
     "id": 68978,
     "slug": "ippudo-westside",
     "name": "Ippudo - Westside",
     "neighborhood": "Hell's Kitchen",
-    "cuisine": ["Japanese", "Ramen"],
+    "cuisine": [
+      "Japanese",
+      "Ramen"
+    ],
     "price_range": 2,
     "rating": null,
-    "tags": ["Lively", "Bustling", "Late Night"]
+    "tags": [
+      "Lively",
+      "Bustling",
+      "Late Night"
+    ]
   },
   {
     "id": 58543,
     "slug": "oiji-mi",
     "name": "Oiji Mi",
     "neighborhood": "Flatiron",
-    "cuisine": ["Korean"],
+    "cuisine": [
+      "Korean"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Date Night", "Special Occasion", "Quiet & Intimate"]
+    "tags": [
+      "Date Night",
+      "Special Occasion",
+      "Quiet & Intimate"
+    ]
   },
   {
     "id": 72271,
     "slug": "cote-nyc",
     "name": "COTE Flatiron",
     "neighborhood": "Flatiron",
-    "cuisine": ["Korean", "Steakhouse"],
+    "cuisine": [
+      "Korean",
+      "Steakhouse"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Date Night", "Lively", "Special Occasion"]
+    "tags": [
+      "Date Night",
+      "Lively",
+      "Special Occasion"
+    ]
   },
   {
     "id": 1385,
     "slug": "cervos",
     "name": "Cervo's",
     "neighborhood": "Lower East Side",
-    "cuisine": ["Spanish", "Seafood", "Mediterranean"],
+    "cuisine": [
+      "Spanish",
+      "Seafood",
+      "Mediterranean"
+    ],
     "price_range": 2,
     "rating": null,
-    "tags": ["Date Night", "Bar Seating", "Quiet & Intimate"]
+    "tags": [
+      "Date Night",
+      "Bar Seating",
+      "Quiet & Intimate"
+    ]
   },
   {
     "id": 10413,
     "slug": "lil-frankies",
     "name": "Lil' Frankie's",
     "neighborhood": "East Village",
-    "cuisine": ["Italian", "Pizza"],
+    "cuisine": [
+      "Italian",
+      "Pizza"
+    ],
     "price_range": 2,
     "rating": null,
-    "tags": ["Lively", "Late Night", "Outdoor"]
+    "tags": [
+      "Lively",
+      "Late Night",
+      "Outdoor"
+    ]
   },
   {
     "id": 83283,
     "slug": "superiority-burger",
     "name": "Superiority Burger",
     "neighborhood": "East Village",
-    "cuisine": ["American"],
+    "cuisine": [
+      "American"
+    ],
     "price_range": 1,
     "rating": null,
-    "tags": ["Late Night", "Lively"]
+    "tags": [
+      "Late Night",
+      "Lively"
+    ]
   },
   {
     "id": 443,
     "slug": "i-sodi",
     "name": "I Sodi",
     "neighborhood": "West Village",
-    "cuisine": ["Italian"],
+    "cuisine": [
+      "Italian"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Date Night", "Quiet & Intimate"]
+    "tags": [
+      "Date Night",
+      "Quiet & Intimate"
+    ]
   },
   {
     "id": 8303,
     "slug": "le-coucou",
     "name": "Le Coucou",
     "neighborhood": "SoHo",
-    "cuisine": ["French"],
+    "cuisine": [
+      "French"
+    ],
     "price_range": 4,
     "rating": null,
-    "tags": ["Date Night", "Special Occasion", "Quiet & Intimate"]
+    "tags": [
+      "Date Night",
+      "Special Occasion",
+      "Quiet & Intimate"
+    ]
   },
   {
     "id": 3015,
     "slug": "misi",
     "name": "Misi",
     "neighborhood": "Williamsburg",
-    "cuisine": ["Italian"],
+    "cuisine": [
+      "Italian"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Date Night", "Quiet & Intimate"]
+    "tags": [
+      "Date Night",
+      "Quiet & Intimate"
+    ]
   },
   {
     "id": 7369,
     "slug": "the-modern",
     "name": "The Modern",
     "neighborhood": "Midtown",
-    "cuisine": ["American", "French"],
+    "cuisine": [
+      "American",
+      "French"
+    ],
     "price_range": 4,
     "rating": null,
-    "tags": ["Business Dining", "Special Occasion", "Private Dining"]
+    "tags": [
+      "Business Dining",
+      "Special Occasion",
+      "Private Dining"
+    ]
   },
   {
     "id": 58751,
     "slug": "pebble-bar",
     "name": "Pebble Bar",
     "neighborhood": "Midtown",
-    "cuisine": ["American"],
+    "cuisine": [
+      "American"
+    ],
     "price_range": 2,
     "rating": null,
-    "tags": ["Bar Seating", "Late Night", "Lively"]
+    "tags": [
+      "Bar Seating",
+      "Late Night",
+      "Lively"
+    ]
   },
   {
     "id": 58337,
     "slug": "casa-enrique",
     "name": "Casa Enrique",
     "neighborhood": "Long Island City",
-    "cuisine": ["Mexican"],
+    "cuisine": [
+      "Mexican"
+    ],
     "price_range": 2,
     "rating": null,
-    "tags": ["Date Night", "Quiet & Intimate"]
+    "tags": [
+      "Date Night",
+      "Quiet & Intimate"
+    ]
   },
   {
     "id": 1543,
     "slug": "jeju-noodle-bar",
     "name": "Jeju Noodle Bar",
     "neighborhood": "West Village",
-    "cuisine": ["Korean"],
+    "cuisine": [
+      "Korean"
+    ],
     "price_range": 2,
     "rating": null,
-    "tags": ["Date Night", "Quiet & Intimate"]
+    "tags": [
+      "Date Night",
+      "Quiet & Intimate"
+    ]
   },
   {
     "id": 58972,
     "slug": "the-noortwyck",
     "name": "The Noortwyck",
     "neighborhood": "West Village",
-    "cuisine": ["American"],
+    "cuisine": [
+      "American"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Date Night", "Quiet & Intimate"]
+    "tags": [
+      "Date Night",
+      "Quiet & Intimate"
+    ]
   },
   {
     "id": 51628,
     "slug": "maison-premiere",
     "name": "Maison Premiere",
     "neighborhood": "Williamsburg",
-    "cuisine": ["French", "Seafood"],
+    "cuisine": [
+      "French",
+      "Seafood"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Bar Seating", "Date Night", "Outdoor"]
+    "tags": [
+      "Bar Seating",
+      "Date Night",
+      "Outdoor"
+    ]
   },
   {
     "id": 6012,
     "slug": "rule-of-thirds",
     "name": "Rule of Thirds",
     "neighborhood": "Greenpoint",
-    "cuisine": ["Japanese"],
+    "cuisine": [
+      "Japanese"
+    ],
     "price_range": 2,
     "rating": null,
-    "tags": ["Date Night", "Outdoor"]
+    "tags": [
+      "Date Night",
+      "Outdoor"
+    ]
   },
   {
     "id": 58422,
     "slug": "the-waverly-inn",
     "name": "The Waverly Inn",
     "neighborhood": "West Village",
-    "cuisine": ["American"],
+    "cuisine": [
+      "American"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Date Night", "Special Occasion", "Quiet & Intimate"]
+    "tags": [
+      "Date Night",
+      "Special Occasion",
+      "Quiet & Intimate"
+    ]
   },
   {
     "id": 53693,
     "slug": "al-di-la-trattoria",
     "name": "al di là Trattoria",
     "neighborhood": "Park Slope",
-    "cuisine": ["Italian"],
+    "cuisine": [
+      "Italian"
+    ],
     "price_range": 2,
     "rating": null,
-    "tags": ["Date Night", "Quiet & Intimate"]
+    "tags": [
+      "Date Night",
+      "Quiet & Intimate"
+    ]
   },
   {
     "id": 0,
     "slug": "don-angie",
     "name": "Don Angie",
     "neighborhood": "West Village",
-    "cuisine": ["Italian"],
+    "cuisine": [
+      "Italian"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Date Night", "Bustling", "Special Occasion"]
+    "tags": [
+      "Date Night",
+      "Bustling",
+      "Special Occasion"
+    ]
   },
   {
     "id": 0,
     "slug": "estela",
     "name": "Estela",
     "neighborhood": "Nolita",
-    "cuisine": ["Mediterranean", "American"],
+    "cuisine": [
+      "Mediterranean",
+      "American"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Date Night", "Bar Seating", "Lively"]
+    "tags": [
+      "Date Night",
+      "Bar Seating",
+      "Lively"
+    ]
   },
   {
     "id": 0,
     "slug": "the-four-horsemen",
     "name": "The Four Horsemen",
     "neighborhood": "Williamsburg",
-    "cuisine": ["American"],
+    "cuisine": [
+      "American"
+    ],
     "price_range": 3,
     "rating": null,
-    "tags": ["Date Night", "Bar Seating", "Quiet & Intimate"]
+    "tags": [
+      "Date Night",
+      "Bar Seating",
+      "Quiet & Intimate"
+    ]
   },
   {
     "id": 0,
     "slug": "buvette",
     "name": "Buvette",
     "neighborhood": "West Village",
-    "cuisine": ["French"],
+    "cuisine": [
+      "French"
+    ],
     "price_range": 2,
     "rating": null,
-    "tags": ["Brunch Spot", "Bar Seating", "Quiet & Intimate"]
+    "tags": [
+      "Brunch Spot",
+      "Bar Seating",
+      "Quiet & Intimate"
+    ]
   },
   {
     "id": 0,
     "slug": "momofuku-ko",
     "name": "Momofuku Ko",
     "neighborhood": "East Village",
-    "cuisine": ["American", "Japanese"],
+    "cuisine": [
+      "American",
+      "Japanese"
+    ],
     "price_range": 4,
     "rating": null,
-    "tags": ["Counter / Chef's Table", "Special Occasion"]
+    "tags": [
+      "Counter / Chef's Table",
+      "Special Occasion"
+    ]
   }
 ]
