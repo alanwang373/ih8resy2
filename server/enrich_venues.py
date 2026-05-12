@@ -18,15 +18,19 @@ import json
 import os
 
 import httpx
+from dotenv import load_dotenv
+
+load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 
 RESY_API_KEY = "VbWk7s3L4KiK5fzlO7JD3Q5EYolJI7n5"
+RESY_AUTH_TOKEN = os.getenv("RESY_AUTH_TOKEN", "")
 VENUES_FILE = os.path.join(os.path.dirname(__file__), "venues_seed.json")
 BATCH_SIZE = 5
 BATCH_PAUSE = 1.2  # seconds between batches to avoid rate-limiting
 
 
 def resy_headers() -> dict:
-    return {
+    h = {
         "Authorization": f'ResyAPI api_key="{RESY_API_KEY}"',
         "X-Origin": "https://resy.com",
         "Referer": "https://resy.com/",
@@ -37,6 +41,10 @@ def resy_headers() -> dict:
         "Accept": "application/json, text/plain, */*",
         "Cache-Control": "no-cache",
     }
+    if RESY_AUTH_TOKEN:
+        h["X-Resy-Auth-Token"] = RESY_AUTH_TOKEN
+        h["X-Resy-Universal-Auth"] = RESY_AUTH_TOKEN
+    return h
 
 
 async def enrich_one(client: httpx.AsyncClient, venue: dict) -> dict:
@@ -92,6 +100,10 @@ async def enrich_one(client: httpx.AsyncClient, venue: dict) -> dict:
 
 
 async def main() -> None:
+    if not RESY_AUTH_TOKEN:
+        print("WARNING: RESY_AUTH_TOKEN not set in server/.env — requests will likely 403.")
+        print("         Add it and re-run to fetch cuisine, tags, ratings, and images.\n")
+
     with open(VENUES_FILE) as f:
         venues = json.load(f)
 
